@@ -29,11 +29,12 @@
             placeholder="Recipient's username"
             aria-label="Recipient's username"
             aria-describedby="button-addon2"
+            id="search-input-text"
           />
           <button
             class="btn btn-outline-primary"
             type="button"
-            id="button-addon2"
+            id="search-button"
           >
             Search
           </button>
@@ -42,20 +43,8 @@
 
       <!-- Search Result -->
       <section class="pt-5">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-          <div class="col">
-            <div class="card h-100">
-              <img src="..." id="phone-image" class="card-img-top img-fluid" alt="..." />
-              <div class="card-body">
-                <small class="text-muted fw-bold" id="phone-release"
-                  >Release Date</small
-                >
-                <h4 class="card-title fw-bold" id="phone-name">Phone Name</h4>
-                <h5 class="card-text fw-bold" id="phone-brand">Brand Name</h5>
-                <button type="button" class="btn btn-primary fw-bold">Show Details</button>
-              </div>
-            </div>
-          </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="all-search-results">
+          
         </div>
       </section>
     </main>
