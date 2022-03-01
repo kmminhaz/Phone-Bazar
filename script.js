@@ -1,10 +1,15 @@
 const showResults = (data) => {
-    const showItems = document.getElementById("all-search-results");
-    showItems.innerHTML = '';
-  for (const phone of data) {
-    const itemDiv = document.createElement("div");
-    itemDiv.classList.add("col");
-    itemDiv.innerHTML = `
+  const showItems = document.getElementById("all-search-results");
+  showItems.innerHTML = "";
+
+  const noItemMessage = document.getElementById("no-item-message");
+  noItemMessage.style.display = "none";
+
+  if(data.length > 0){
+      for (const phone of data) {
+        const itemDiv = document.createElement("div");
+        itemDiv.classList.add("col");
+        itemDiv.innerHTML = `
         <div class="card h-100">
             <img src="${phone.image}" class="card-img-top img-fluid" />
             <div class="card-body">
@@ -18,7 +23,10 @@ const showResults = (data) => {
         </div>
         `;
 
-    showItems.appendChild(itemDiv);
+        showItems.appendChild(itemDiv);
+      }
+  }else{
+    noItemMessage.style.display = "block";
   }
 };
 
@@ -28,10 +36,10 @@ searchButton.addEventListener("click", function () {
   const searchText = document.getElementById("search-input-text");
   const searchTextValue = searchText.value;
 
-  searchText.value = ''
+  searchText.value = "";
 
   fetch(
-    `https://openapi.programming-hero.com/api/phones?search=${searchTextValue}`
+    `https://openapi.programming-hero.com/api/phones?search=${searchTextValue.toLowerCase()}`
   )
     .then((response) => response.json())
     .then((json) => showResults(json.data));
