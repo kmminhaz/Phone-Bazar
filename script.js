@@ -1,5 +1,29 @@
 const showDetailsPlace = document.getElementById("show-details");
 
+const sensorsInfo = sensors => {
+  let allSensors = '';
+  let flag = 0;
+  for(const sensor of sensors){
+    if(flag == 0){
+      allSensors = allSensors + sensor;
+      flag = 1;
+    }
+    else{
+      allSensors = allSensors + ", " + sensor; 
+    }
+  }
+  return allSensors + '.';
+}
+
+const otherInfo = (otherInformations) => {
+  for (const information in otherInformations) {
+    if (otherInformations.hasOwnProperty.call(otherInformations, information)) {
+      const element = otherInformations[information];
+      console.log(element);
+    }
+  }
+};
+
 const fetchPhoneDetail = (phoneId) => {
   fetch(`https://openapi.programming-hero.com/api/phone/${phoneId}`)
     .then((response) => response.json())
@@ -8,18 +32,27 @@ const fetchPhoneDetail = (phoneId) => {
 
 const phoneDetails = (detailsData) => {
   let dateOfRelease;
+  
   if(detailsData.releaseDate == ''){
     dateOfRelease = "Release Date Not Announced Yet"
   }else{
     dateOfRelease = detailsData.releaseDate;
   }
-  console.log(detailsData.releaseDate);
+
   showDetailsPlace.innerHTML = `
         <div class="col-lg-6 col-12 mx-auto py-2 px-lg-5 px-4 border">
-          <img src="${detailsData.image}" class="card-img-top py-3 px-5" height="350px" />
+          <img src="${
+            detailsData.image
+          }" class="card-img-top py-3 px-5" height="350px" />
           <small class="text-muted fw-bold">${dateOfRelease}</small>
           <h4 class="fw-bold">${detailsData.name}</h4>
           <h5 class="fw-bold">${detailsData.brand}</h5>
+          <p class=""><strong>Sensors : </strong> ${sensorsInfo(
+            detailsData.mainFeatures.sensors
+          )} </p>
+          <p class=""><strong>Other Informations : \n </strong> ${otherInfo(
+            detailsData.others
+          )} </p>
         </div>
   `;
 };
