@@ -41,9 +41,15 @@
         </div>
       </section>
 
+      <!-- Spinner -->
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status" id="spinner" style="display: none">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
       <!-- Show details -->
-      <section class="row my-3" id="show-details">
-      </section>
+      <section class="row my-3" id="show-details"></section>
 
       <!-- Search Result -->
       <section class="pt-5">
@@ -61,7 +67,14 @@
 
         <!-- Show All Button -->
         <div class="d-grid gap-2 d-md-flex justify-content-md-end bg-secondary">
-          <button id="show-all" class="btn btn-primary me-md-2 my-3" type="button" style="display: none;">Show All</button>
+          <button
+            id="show-all"
+            class="btn btn-primary me-md-2 my-3"
+            type="button"
+            style="display: none"
+          >
+            Show All
+          </button>
         </div>
       </section>
     </main>

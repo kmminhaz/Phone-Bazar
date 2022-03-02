@@ -8,10 +8,13 @@ const showDetailsPlace = document.getElementById("show-details");
 // getting search button
 const searchButton = document.getElementById("search-button");
 
+// Getting Spinner
+const spinner = document.getElementById("spinner");
+
 // ---------------
 // showing sensors
 // ---------------
-const sensorsInfo = sensors => {
+const sensorsInfo = (sensors) => {
   let allSensors = "";
   let flag = 0;
 
@@ -30,7 +33,7 @@ const sensorsInfo = sensors => {
 // --------------------------
 // showing other info details
 // --------------------------
-const otherInfo = otherInfos => {
+const otherInfo = (otherInfos) => {
   let info = "";
 
   // Looping the others object and adding to a string
@@ -43,7 +46,7 @@ const otherInfo = otherInfos => {
 // -------------------------
 // Fetching data by phone ID
 // -------------------------
-const fetchPhoneDetail = phoneId => {
+const fetchPhoneDetail = (phoneId) => {
   fetch(`https://openapi.programming-hero.com/api/phone/${phoneId}`)
     .then((response) => response.json())
     .then((json) => phoneDetails(json.data));
@@ -52,7 +55,7 @@ const fetchPhoneDetail = phoneId => {
 // ---------------------
 // showing phone Details
 // ---------------------
-const phoneDetails = detailsData => {
+const phoneDetails = (detailsData) => {
   let dateOfRelease;
   const otherInfos = detailsData.others;
 
@@ -85,7 +88,7 @@ const phoneDetails = detailsData => {
 // -----------------------------------
 // Setting Values to div
 // -----------------------------------
-const itemsToShow = phone =>{
+const itemsToShow = (phone) => {
   return `
     <div class="card h-100">
         <img src="${phone.image}" class="card-img-top py-3 px-5" height="350px" />
@@ -96,13 +99,12 @@ const itemsToShow = phone =>{
         </div>
     </div>
     `;
-}
-
+};
 
 // -----------------------------------
 // Showing all phones as search result
 // -----------------------------------
-const showResults = data => {
+const showResults = (data) => {
   // declearing the initial state of elements and getting them
   const showItems = document.getElementById("all-search-results");
   showItems.innerHTML = "";
@@ -150,13 +152,23 @@ const showResults = data => {
       }
       phoneItem++;
     }
+
+    // Stop Spinner
+    spinner.style.display = "none";
   } else {
+    // Show No Item Message
     noItemMessage.style.display = "block";
+
+    // Stop Spinner
+    spinner.style.display = "none";
   }
 };
 
-// Search Button Works
+// Search Button Workings
 searchButton.addEventListener("click", function () {
+  // showing spinner
+  spinner.style.display = "block";
+
   // Taking Search Input Text
   const searchText = document.getElementById("search-input-text");
   const searchTextValue = searchText.value;
