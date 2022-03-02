@@ -77,7 +77,7 @@ const phoneDetails = (detailsData) => {
           <img src="${
             detailsData.image
           }" class="card-img-top py-3 px-5" height="350px" width: "250px" />
-          <small class="text-muted fw-bold">${dateOfRelease}</small>
+          <small class="fw-bolder">${dateOfRelease}</small>
           <h4 class="fw-bold">${detailsData.name}</h4>
           <h5 class="fw-bold">${detailsData.brand}</h5>
           <p class=""><strong>Sensors : </strong> ${sensorsInfo(
