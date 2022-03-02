@@ -7,10 +7,17 @@ const fetchPhoneDetail = (phoneId) => {
 };
 
 const phoneDetails = (detailsData) => {
+  let dateOfRelease;
+  if(detailsData.releaseDate == ''){
+    dateOfRelease = "Release Date Not Announced Yet"
+  }else{
+    dateOfRelease = detailsData.releaseDate;
+  }
+  console.log(detailsData.releaseDate);
   showDetailsPlace.innerHTML = `
-        <div class="w-50 mx-auto py-2 px-5 border">
+        <div class="col-lg-6 col-12 mx-auto py-2 px-lg-5 px-4 border">
           <img src="${detailsData.image}" class="card-img-top py-3 px-5" height="350px" />
-          <small class="text-muted fw-bold">${detailsData.releaseDate}</small>
+          <small class="text-muted fw-bold">${dateOfRelease}</small>
           <h4 class="fw-bold">${detailsData.name}</h4>
           <h5 class="fw-bold">${detailsData.brand}</h5>
         </div>
