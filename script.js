@@ -1,5 +1,16 @@
+// --------------------
+// Globel Declearations
+// --------------------
+
+// show details place
 const showDetailsPlace = document.getElementById("show-details");
 
+// search button
+const searchButton = document.getElementById("search-button");
+
+// ---------------
+// showing sensors
+// ---------------
 const sensorsInfo = (sensors) => {
   let allSensors = "";
   let flag = 0;
@@ -14,6 +25,9 @@ const sensorsInfo = (sensors) => {
   return allSensors + ".";
 };
 
+// --------------------------
+// showing other info details
+// --------------------------
 const otherInfo = (otherInfos) => {
   let text = "";
 
@@ -23,22 +37,30 @@ const otherInfo = (otherInfos) => {
   return text;
 };
 
+// -------------------------
+// Fetching data by phone ID
+// -------------------------
 const fetchPhoneDetail = (phoneId) => {
   fetch(`https://openapi.programming-hero.com/api/phone/${phoneId}`)
     .then((response) => response.json())
     .then((json) => phoneDetails(json.data));
 };
 
+// ---------------------
+// showing phone Details
+// ---------------------
 const phoneDetails = (detailsData) => {
   let dateOfRelease;
   const otherInfos = detailsData.others;
 
+  // checking if the releaseDate is empty or not
   if (detailsData.releaseDate == "") {
     dateOfRelease = "Release Date Not Announced Yet";
   } else {
     dateOfRelease = detailsData.releaseDate;
   }
 
+  // implementing the html for details to show
   showDetailsPlace.innerHTML = `
         <div class="col-lg-6 col-12 mx-auto py-2 px-lg-5 px-4 border">
           <img src="${
@@ -57,7 +79,11 @@ const phoneDetails = (detailsData) => {
   `;
 };
 
+// -----------------------------------
+// Showing all phones as search result
+// -----------------------------------
 const showResults = (data) => {
+  // declearing the initial state of elements and getting them
   const showItems = document.getElementById("all-search-results");
   showItems.innerHTML = "";
 
@@ -67,10 +93,12 @@ const showResults = (data) => {
   const showAllBtn = document.getElementById("show-all");
   showAllBtn.style.display = "none";
 
+  // checking if any item is present or not
   if (data.length > 0) {
     let phoneItem = 0;
 
     for (const phone of data) {
+      // showing 20 products
       if (phoneItem < 20) {
         const itemDiv = document.createElement("div");
         itemDiv.classList.add("col");
@@ -86,6 +114,7 @@ const showResults = (data) => {
                     `;
         showItems.appendChild(itemDiv);
       } else {
+        // making visible to the show all button
         showAllBtn.style.display = "block";
         showAllBtn.addEventListener("click", function () {
           showItems.appendChild(itemDivMore);
@@ -98,15 +127,17 @@ const showResults = (data) => {
   }
 };
 
-const searchButton = document.getElementById("search-button");
-
+// Search Button Works
 searchButton.addEventListener("click", function () {
+  // Taking Search Input Text
   const searchText = document.getElementById("search-input-text");
   const searchTextValue = searchText.value;
 
+  // Declearing Initial State's
   searchText.value = "";
   showDetailsPlace.innerHTML = "";
 
+  // Fetching Fata of Search Text
   fetch(
     `https://openapi.programming-hero.com/api/phones?search=${searchTextValue.toLowerCase()}`
   )
