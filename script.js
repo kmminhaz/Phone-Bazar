@@ -1,7 +1,20 @@
-const phoneDetail = (phoneId) => {
+const showDetailsPlace = document.getElementById("show-details");
+
+const fetchPhoneDetail = (phoneId) => {
   fetch(`https://openapi.programming-hero.com/api/phone/${phoneId}`)
     .then((response) => response.json())
-    .then((json) => console.log(json));
+    .then((json) => phoneDetails(json.data));
+};
+
+const phoneDetails = (detailsData) => {
+  showDetailsPlace.innerHTML = `
+        <div class="w-50 mx-auto py-2 px-5 border">
+          <img src="${detailsData.image}" class="card-img-top py-3 px-5" height="350px" />
+          <small class="text-muted fw-bold">${detailsData.releaseDate}</small>
+          <h4 class="fw-bold">${detailsData.name}</h4>
+          <h5 class="fw-bold">${detailsData.brand}</h5>
+        </div>
+  `;
 };
 
 const showResults = (data) => {
@@ -30,7 +43,7 @@ const showResults = (data) => {
                             >
                             <h4 class="card-title fw-bold">${phone.phone_name}</h4>
                             <h5 class="card-text fw-bold">${phone.brand}</h5>
-                            <button type="button" class="btn btn-primary fw-bold" onclick="phoneDetail('${phone.slug}')">Show Details</button>
+                            <button type="button" class="btn btn-primary fw-bold" onclick="fetchPhoneDetail('${phone.slug}')">Show Details</button>
                         </div>
                     </div>
                     `;
@@ -55,6 +68,7 @@ searchButton.addEventListener("click", function () {
   const searchTextValue = searchText.value;
 
   searchText.value = "";
+  showDetailsPlace.innerHTML = "";
 
   fetch(
     `https://openapi.programming-hero.com/api/phones?search=${searchTextValue.toLowerCase()}`
