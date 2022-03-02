@@ -1,27 +1,26 @@
 const showDetailsPlace = document.getElementById("show-details");
 
-const sensorsInfo = sensors => {
-  let allSensors = '';
+const sensorsInfo = (sensors) => {
+  let allSensors = "";
   let flag = 0;
-  for(const sensor of sensors){
-    if(flag == 0){
+  for (const sensor of sensors) {
+    if (flag == 0) {
       allSensors = allSensors + sensor;
       flag = 1;
-    }
-    else{
-      allSensors = allSensors + ", " + sensor; 
+    } else {
+      allSensors = allSensors + ", " + sensor;
     }
   }
-  return allSensors + '.';
-}
+  return allSensors + ".";
+};
 
-const otherInfo = (otherInformations) => {
-  for (const information in otherInformations) {
-    if (otherInformations.hasOwnProperty.call(otherInformations, information)) {
-      const element = otherInformations[information];
-      console.log(element);
-    }
+const otherInfo = (otherInfos) => {
+  let text = "";
+
+  for (const keys in otherInfos) {
+    text = text + "<br>" + (keys + " : " + otherInfos[keys]);
   }
+  return text;
 };
 
 const fetchPhoneDetail = (phoneId) => {
@@ -32,10 +31,11 @@ const fetchPhoneDetail = (phoneId) => {
 
 const phoneDetails = (detailsData) => {
   let dateOfRelease;
-  
-  if(detailsData.releaseDate == ''){
-    dateOfRelease = "Release Date Not Announced Yet"
-  }else{
+  const otherInfos = detailsData.others;
+
+  if (detailsData.releaseDate == "") {
+    dateOfRelease = "Release Date Not Announced Yet";
+  } else {
     dateOfRelease = detailsData.releaseDate;
   }
 
@@ -51,7 +51,7 @@ const phoneDetails = (detailsData) => {
             detailsData.mainFeatures.sensors
           )} </p>
           <p class=""><strong>Other Informations : \n </strong> ${otherInfo(
-            detailsData.others
+            otherInfos
           )} </p>
         </div>
   `;
@@ -78,12 +78,9 @@ const showResults = (data) => {
                     <div class="card h-100">
                         <img src="${phone.image}" class="card-img-top py-3 px-5" height="350px" />
                         <div class="card-body">
-                            <small class="text-muted fw-bold"
-                                >Release Date</small
-                            >
-                            <h4 class="card-title fw-bold">${phone.phone_name}</h4>
-                            <h5 class="card-text fw-bold">${phone.brand}</h5>
-                            <button type="button" class="btn btn-primary fw-bold" onclick="fetchPhoneDetail('${phone.slug}')">Show Details</button>
+                          <h4 class="card-title fw-bold">${phone.phone_name}</h4>
+                          <h5 class="card-text fw-bold">${phone.brand}</h5>
+                          <button type="button" class="btn btn-primary fw-bold" onclick="fetchPhoneDetail('${phone.slug}')">Show Details</button>
                         </div>
                     </div>
                     `;
