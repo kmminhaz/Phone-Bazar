@@ -36,9 +36,14 @@ const sensorsInfo = (sensors) => {
 const otherInfo = (otherInfos) => {
   let info = "";
 
-  // Looping the others object and adding to a string
-  for (const keys in otherInfos) {
-    info = info + "<br>" + (keys + " : " + otherInfos[keys]);
+  // Checking if there is any data or not
+  if (otherInfos == undefined) {
+    info = "No Other Information's To Show";
+  } else {
+    // Looping the others object and adding to a string
+    for (const keys in otherInfos) {
+      info = info + "<br>" + (keys + " : " + otherInfos[keys]);
+    }
   }
   return info;
 };
@@ -57,7 +62,7 @@ const fetchPhoneDetail = (phoneId) => {
 // ---------------------
 const phoneDetails = (detailsData) => {
   let dateOfRelease;
-  const otherInfos = detailsData.others;
+  let otherInfos = detailsData.others;
 
   // checking if the releaseDate is empty or not
   if (detailsData.releaseDate == "") {
