@@ -68,10 +68,10 @@ const phoneDetails = (detailsData) => {
 
   // implementing the html for details to show
   showDetailsPlace.innerHTML = `
-        <div class="col-lg-6 col-12 mx-auto py-2 px-lg-5 px-4 border">
+        <div class="col-lg-6 col-12 mx-auto py-2 px-lg-5 px-4 pb-light-dark text-white border rounded-3">
           <img src="${
             detailsData.image
-          }" class="card-img-top py-3 px-5" height="350px" />
+          }" class="card-img-top py-3 px-5" height="350px" width: "250px" />
           <small class="text-muted fw-bold">${dateOfRelease}</small>
           <h4 class="fw-bold">${detailsData.name}</h4>
           <h5 class="fw-bold">${detailsData.brand}</h5>
@@ -90,9 +90,9 @@ const phoneDetails = (detailsData) => {
 // -----------------------------------
 const itemsToShow = (phone) => {
   return `
-    <div class="card h-100">
-        <img src="${phone.image}" class="card-img-top py-3 px-5" height="350px" />
-        <div class="card-body">
+    <div class="card h-100 rounded-3 px-lg-5 px-3">
+        <img src="${phone.image}" class="card-img-top py-3" height="350px" />
+        <div class="card-body py-3">
           <h4 class="card-title fw-bold">${phone.phone_name}</h4>
           <h5 class="card-text fw-bold">${phone.brand}</h5>
           <button type="button" class="btn btn-primary fw-bold" onclick="fetchPhoneDetail('${phone.slug}')">Show Details</button>
