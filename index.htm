@@ -26,8 +26,8 @@
           <input
             type="text"
             class="form-control"
-            placeholder="Recipient's username"
-            aria-label="Recipient's username"
+            placeholder="Find your phone"
+            aria-label="Find your phone"
             aria-describedby="button-addon2"
             id="search-input-text"
           />
@@ -41,10 +41,28 @@
         </div>
       </section>
 
+      <!-- Show details -->
+      <section class="my-3" id="show-details">
+        
+      </section>
+
       <!-- Search Result -->
       <section class="pt-5">
-        <h3 class="text-danger text-center fw-bold" id="no-item-message" style="display: none;">No Item Found</h3>
-        <div class="row row-cols-1 row-cols-md-3 g-4" id="all-search-results">
+        <h3
+          class="text-danger text-center fw-bold"
+          id="no-item-message"
+          style="display: none"
+        >
+          No Item Found
+        </h3>
+        <div
+          class="row row-cols-1 row-cols-md-3 g-4"
+          id="all-search-results"
+        ></div>
+
+        <!-- Show All Button -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button id="show-all" class="btn btn-primary me-md-2" type="button" style="display: none;">Show All</button>
         </div>
       </section>
     </main>
