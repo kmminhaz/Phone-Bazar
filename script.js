@@ -2,18 +2,20 @@
 // Globel Declearations
 // --------------------
 
-// show details place
+// getting show details place
 const showDetailsPlace = document.getElementById("show-details");
 
-// search button
+// getting search button
 const searchButton = document.getElementById("search-button");
 
 // ---------------
 // showing sensors
 // ---------------
-const sensorsInfo = (sensors) => {
+const sensorsInfo = sensors => {
   let allSensors = "";
   let flag = 0;
+
+  // Looping the sensors array and adding to a string
   for (const sensor of sensors) {
     if (flag == 0) {
       allSensors = allSensors + sensor;
@@ -28,19 +30,20 @@ const sensorsInfo = (sensors) => {
 // --------------------------
 // showing other info details
 // --------------------------
-const otherInfo = (otherInfos) => {
-  let text = "";
+const otherInfo = otherInfos => {
+  let info = "";
 
+  // Looping the others object and adding to a string
   for (const keys in otherInfos) {
-    text = text + "<br>" + (keys + " : " + otherInfos[keys]);
+    info = info + "<br>" + (keys + " : " + otherInfos[keys]);
   }
-  return text;
+  return info;
 };
 
 // -------------------------
 // Fetching data by phone ID
 // -------------------------
-const fetchPhoneDetail = (phoneId) => {
+const fetchPhoneDetail = phoneId => {
   fetch(`https://openapi.programming-hero.com/api/phone/${phoneId}`)
     .then((response) => response.json())
     .then((json) => phoneDetails(json.data));
@@ -49,7 +52,7 @@ const fetchPhoneDetail = (phoneId) => {
 // ---------------------
 // showing phone Details
 // ---------------------
-const phoneDetails = (detailsData) => {
+const phoneDetails = detailsData => {
   let dateOfRelease;
   const otherInfos = detailsData.others;
 
@@ -80,9 +83,26 @@ const phoneDetails = (detailsData) => {
 };
 
 // -----------------------------------
+// Setting Values to div
+// -----------------------------------
+const itemsToShow = phone =>{
+  return `
+    <div class="card h-100">
+        <img src="${phone.image}" class="card-img-top py-3 px-5" height="350px" />
+        <div class="card-body">
+          <h4 class="card-title fw-bold">${phone.phone_name}</h4>
+          <h5 class="card-text fw-bold">${phone.brand}</h5>
+          <button type="button" class="btn btn-primary fw-bold" onclick="fetchPhoneDetail('${phone.slug}')">Show Details</button>
+        </div>
+    </div>
+    `;
+}
+
+
+// -----------------------------------
 // Showing all phones as search result
 // -----------------------------------
-const showResults = (data) => {
+const showResults = data => {
   // declearing the initial state of elements and getting them
   const showItems = document.getElementById("all-search-results");
   showItems.innerHTML = "";
@@ -98,26 +118,34 @@ const showResults = (data) => {
     let phoneItem = 0;
 
     for (const phone of data) {
-      // showing 20 products
+      // showing 20 phones
       if (phoneItem < 20) {
+        // creating 2 div
         const itemDiv = document.createElement("div");
+
+        // setting class, calling function to setting values in div
         itemDiv.classList.add("col");
-        itemDiv.innerHTML = `
-                    <div class="card h-100">
-                        <img src="${phone.image}" class="card-img-top py-3 px-5" height="350px" />
-                        <div class="card-body">
-                          <h4 class="card-title fw-bold">${phone.phone_name}</h4>
-                          <h5 class="card-text fw-bold">${phone.brand}</h5>
-                          <button type="button" class="btn btn-primary fw-bold" onclick="fetchPhoneDetail('${phone.slug}')">Show Details</button>
-                        </div>
-                    </div>
-                    `;
+        itemDiv.innerHTML = `${itemsToShow(phone)}`;
+
+        // showing values
         showItems.appendChild(itemDiv);
       } else {
-        // making visible to the show all button
+        // phones over 20
         showAllBtn.style.display = "block";
+
+        // creating 2 div
+        const allOtherItemsDiv = document.createElement("div");
+        const itemDivMore = document.createElement("div");
+
+        // setting class, calling function to setting values in div
+        itemDivMore.classList.add("col");
+        itemDivMore.innerHTML = `${itemsToShow(phone)}`;
+        allOtherItemsDiv.appendChild(itemDivMore);
+
+        // Showing values on showAllBtn click
         showAllBtn.addEventListener("click", function () {
-          showItems.appendChild(itemDivMore);
+          showItems.appendChild(allOtherItemsDiv);
+          showAllBtn.style.display = "none";
         });
       }
       phoneItem++;
